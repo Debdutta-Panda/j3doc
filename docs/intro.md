@@ -4,44 +4,40 @@ sidebar_position: 1
 
 # Tutorial Intro
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Explore the simplicity and power of J3, a framework designed for Jetpack Compose Projects. Unleash the awesomeness of Jetpack Compose with its user-friendly and highly productive declarative UI approach. While Jetpack Compose is incredible, it presents challenges like cumbersome navigation and toast message control through the viewModel. J3 simplifies these tasks, allowing you to effortlessly manage navigation and toast messages, so you can concentrate on enhancing your UI and functionality. Boost your development experience with J3!
 
-## Getting Started
+## Jetpack Compose Challenges
 
-Get started by **creating a new site**.
+1. Navigation from ViewModel
+2. Toast message from ViewModel
+3. Status Bar color control from ViewModel
+4. Keyboard Control from ViewModel
+5. Activity for result from ViewModel
+6. Permission management from ViewModel
+7. Soft input mode control from ViewModel
+8. Decoupling UI/page/screen from ViewModel
+9. Making pixel perfect ui
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+## UI tasks from VieiwModel is against principles
 
-### What you'll need
+Yes right, the points mentioned above are just against principles.
+Handling UI-related tasks directly in a ViewModel goes against the principles of the MVVM (Model-View-ViewModel) architecture, where the ViewModel is responsible for managing the data and business logic, while the UI-related tasks are typically handled by the View (Activity or Fragment).
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+Let's consider some scenarios:
 
-## Generate a new site
+1. Navigate to a page after receiving response from REST API
+2. Showing a toast message if a text field value does not match with local databse data
+3. Changing status bar color to red if a fintech app page detects user is in debt
+4. Hide keyboard if textfield value matches a data in database
+5. and so on...
 
-Generate a new Docusaurus site using the **classic template**.
+## Final Talk
 
-The classic template will automatically be added to your project after you run the command:
+We of course need to control/trigger navigation, toast etc from ViewModel but those must to be fulfilled in UI scope. To make this happen the basic mechanism is to have some mutableStateOf in ViewModel and that need need be observed in composable scope and navigation, toast etc need to be executed accordingly.
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+## J3's role
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+1. It offers the required mechanism to have the UI tasks' control/trigger in ViewModel and fulfillment provision in composable scope.
+2. It decouples UI from ViewModel. With J3 we can use any UI with any ViewModel. UI just don't depend's on or know any ViewModel.
+3. Offers simple way to make pixel perfect UI for every device type/size.
+4. Provides simple dependency injection. Now, you don't need Dagger or Hilt.

@@ -4,8 +4,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'J3',
-  tagline: 'Easy Jetpack Compose',
-  favicon: 'img/favicon.ico',
+  tagline: 'Jetpack Joyride for Compose',
+  favicon: 'img/j3_logo.png',
 
   // Set the production url of your site here
   url: 'https://j3.debduttapanda.com',
@@ -45,7 +45,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Debdutta-Panda/j3doc',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -58,10 +58,10 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'J3',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'J3 Logo',
+        src: 'img/j3_logo.svg',
       },
       items: [
         {
@@ -72,7 +72,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/Debdutta-Panda/J3',
           label: 'GitHub',
           position: 'right',
         },
@@ -90,23 +90,7 @@ const config: Config = {
             },
           ],
         },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
+        
         {
           title: 'More',
           items: [
@@ -116,7 +100,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/Debdutta-Panda/J3',
             },
           ],
         },

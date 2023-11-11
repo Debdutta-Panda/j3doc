@@ -10,32 +10,38 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: '🚀 Easy to Integrate',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        J3 is crafted for seamless integration with Jetpack Compose, 
+        making it a breeze to enhance your app's navigation, 
+        toast messages, keyboard interactions, status boards, 
+        and activity results. No more hassles – just effortless implementation.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: '🎯 Focus on Functionality',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Let J3 handle the heavy lifting while you concentrate on perfecting your 
+        app's functionality. With J3, managing navigation, toasts, keyboard events, 
+        status boards, and activity results becomes a joyride – allowing you to 
+        prioritize what truly matters in your project.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: '🌐 Streamlined Documentation',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        J3's documentation is designed with simplicity in mind. Swiftly 
+        integrate the library into your project using our clear, concise 
+        documentation, allowing you to get your app up and running in 
+        no time. Focus on creating, and let J3 take care of the rest.
       </>
     ),
   },

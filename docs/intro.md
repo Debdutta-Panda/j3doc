@@ -1,10 +1,11 @@
 ---
 sidebar_position: 1
 ---
+# Intro
 
-# Tutorial Intro
+## Welcome to J3 Framework: Elevate Your Jetpack Compose Experience!
 
-Explore the simplicity and power of J3, a framework designed for Jetpack Compose Projects. Unleash the awesomeness of Jetpack Compose with its user-friendly and highly productive declarative UI approach. While Jetpack Compose is incredible, it presents challenges like cumbersome navigation and toast message control through the viewModel. J3 simplifies these tasks, allowing you to effortlessly manage navigation and toast messages, so you can concentrate on enhancing your UI and functionality. Boost your development experience with J3!
+Embark on a straightforward journey with J3, a framework crafted for Jetpack Compose Projects. Discover the user-friendly world of Jetpack Compose, where creating intuitive UI meets enhanced productivity. J3 simplifies challenges like navigation and toast message control via ViewModel, allowing you to concentrate on improving your UI and functionality. Elevate your development experience effortlessly with J3!
 
 ## Jetpack Compose Challenges
 
@@ -18,26 +19,27 @@ Explore the simplicity and power of J3, a framework designed for Jetpack Compose
 8. Decoupling UI/page/screen from ViewModel
 9. Making pixel perfect ui
 
-## UI tasks from VieiwModel is against principles
+## Rethinking UI Principles
 
-Yes right, the points mentioned above are just against principles.
-Handling UI-related tasks directly in a ViewModel goes against the principles of the MVVM (Model-View-ViewModel) architecture, where the ViewModel is responsible for managing the data and business logic, while the UI-related tasks are typically handled by the View (Activity or Fragment).
+The challenges mentioned above, they go against the principles. In the world of **MVVM** architecture, direct handling of UI-related tasks in a *ViewModel* contradicts the separation of concerns. The *ViewModel* should manage data and business logic, leaving UI-related tasks to the View (*Activity* or *Fragment*).
 
-Let's consider some scenarios:
+Let's explore real-world scenarios:
 
-1. Navigate to a page after receiving response from REST API
-2. Showing a toast message if a text field value does not match with local databse data
-3. Changing status bar color to red if a fintech app page detects user is in debt
-4. Hide keyboard if textfield value matches a data in database
-5. and so on...
+1. Navigate to a page post-REST API response
+2. Display a toast message if a text field doesn't match local database data
+3. Change the status bar color to red if a fintech app detects the user is in debt
+4. Hide the keyboard if a text field value matches a database entry
+5. and more...
 
 ## Final Talk
 
 We of course need to control/trigger navigation, toast etc from ViewModel but those must to be fulfilled in UI scope. To make this happen the basic mechanism is to have some mutableStateOf in ViewModel and that need need be observed in composable scope and navigation, toast etc need to be executed accordingly.
 
-## J3's role
+## **J3's Key Contributions**
 
-1. It offers the required mechanism to have the UI tasks' control/trigger in ViewModel and fulfillment provision in composable scope.
-2. It decouples UI from ViewModel. With J3 we can use any UI with any ViewModel. UI just don't depend's on or know any ViewModel.
-3. Offers simple way to make pixel perfect UI for every device type/size.
-4. Provides simple dependency injection. Now, you don't need Dagger or Hilt.
+1. Empowers *ViewModel* with control over UI tasks, seamlessly integrating with the composable scope.
+2. Decouples UI from *ViewModel*, enabling the use of any UI with any *ViewModel*. Your UI remains independent and unaware of *ViewModel* intricacies.
+3. Simplifies the creation of pixel-perfect UI for every device type and size.
+4. Offers straightforward dependency injection, eliminating the need for Dagger or Hilt.
+
+Elevate your Jetpack Compose experience with **J3** – where simplicity, control, and productivity converge seamlessly!

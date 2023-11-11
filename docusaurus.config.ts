@@ -38,7 +38,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Debdutta-Panda/J3',
+            'https://github.com/Debdutta-Panda/j3doc/blob/main',
         },
         blog: {
           showReadingTime: true,
@@ -70,7 +70,6 @@ const config: Config = {
           position: 'left',
           label: 'Tutorial',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/Debdutta-Panda/J3',
           label: 'GitHub',
@@ -110,6 +109,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+      additionalLanguages: ['kotlin','groovy'],
     },
   } satisfies Preset.ThemeConfig,
 };

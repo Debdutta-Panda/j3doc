@@ -1,0 +1,62 @@
+---
+sidebar_position: 2
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Getting Started
+
+## Latest Version
+[![](https://jitpack.io/v/Debdutta-Panda/J3.svg)](https://jitpack.io/#Debdutta-Panda/J3)
+
+## settings.gradle setup(add the repository)
+Add **jitpack** in your settings.gradle
+<Tabs>
+<TabItem value="kts" label="kts">
+
+
+```kts
+dependencyResolutionManagement {
+    ...
+    repositories {
+        ...
+        maven("https://jitpack.io")// just this line
+    }
+}
+```
+
+</TabItem>
+<TabItem value="groovy" label="groovy">
+
+```groovy
+dependencyResolutionManagement {
+    ...
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' } // just this line
+    }
+}
+```
+</TabItem>
+</Tabs>
+
+## Module level build.gradle file setup(add the dependency)
+
+Add the dependency in your module level build.gradle file
+
+<Tabs>
+<TabItem value="kts" label="kts">
+
+
+```kts
+implementation("com.github.Debdutta-Panda:<latest_version>")
+```
+
+</TabItem>
+<TabItem value="groovy" label="groovy">
+
+```groovy
+implementation("com.github.Debdutta-Panda:<latest_version>")
+```
+</TabItem>
+</Tabs>

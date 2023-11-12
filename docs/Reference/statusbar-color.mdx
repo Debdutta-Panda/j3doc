@@ -1,0 +1,19 @@
+---
+sidebar_position: 2
+---
+
+# Status bar color
+
+There are two way to set status bar color and icon darkness:
+
+1. `fun setStatusBarColor(color: Color, darkIcon: Boolean)`
+2. `fun setStatusBarColor(statusBarColo: StatusBarColor)`
+
+## StatusBarColor
+
+```kt
+data class StatusBarColor(
+    val color: Color,
+    val darkIcons: Boolean = false
+)
+```

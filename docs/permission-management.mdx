@@ -1,0 +1,35 @@
+---
+sidebar_position: 15
+---
+
+# Permission Management
+
+Permission Management is just easy in `WirelessViewModel`. No `callllback`, no `onActivityResult`, just **linear** and **synchronous**.
+
+## Checking Permission
+
+```kt
+viewModelScope.launch {
+    // single permission
+    val r = android.Manifest.permission.CAMERA.checkPermission()
+    val granted = r?.allPermissionsGranted==true
+
+    // multiple permission
+    val r = listOf(android.Manifest.permission.CAMERA,...).checkPermission()
+    val granted = r?.allPermissionsGranted==true
+}
+```
+
+## Request Permission
+
+```kt
+viewModelScope.launch {
+    // single permission
+    val r = android.Manifest.permission.CAMERA.requestPermission()
+    val granted = r.multiPermissionState?.allPermissionsGranted==true
+
+    // multiple permission
+    val r = listOf(android.Manifest.permission.CAMERA,...).requestPermission()
+    val granted = r.multiPermissionState?.allPermissionsGranted==true
+}
+```

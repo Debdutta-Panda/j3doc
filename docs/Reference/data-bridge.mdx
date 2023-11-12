@@ -1,0 +1,63 @@
+---
+sidebar_position: 1
+---
+
+# Data Bridge
+
+## Access variable
+
+There are various methods to get various type of variables
+
+```kt
+fun rememberFloatState(id: Any): State<Float>
+fun rememberDoubleState(id: Any): State<Double>
+fun rememberStringState(id: Any): State<String>
+fun rememberStringResourceState(id: Any): State<StringResource>
+fun rememberBoolState(id: Any): State<Boolean>
+fun rememberSafeBoolState(id: Any): State<Boolean>?
+fun rememberIntState(id: Any): State<Int>
+fun <T> rememberListState(id: Any): SnapshotStateList<T>
+fun <T> rememberSafeListState(id: Any): SnapshotStateList<T>?
+fun <T, E> rememberMapState(id: Any): SnapshotStateMap<T, E>
+fun <T, E> rememberSafeMapState(id: Any): SnapshotStateMap<T, E>?
+fun <T> rememberT(id: Any): T
+fun <T> rememberTState(id: Any): State<T>
+fun <T> rememberSafeTState(id: Any): State<T>?
+```
+
+## Access scope
+
+You can access variable from any composable scope as long as it is inside(direct/deep) `MyScreen`.
+You can access from parameter/argument section or in function block section.
+
+```kt
+@Composable
+fun MyComposableUi(
+    name: State<String> = rememberStringState(id = MyDataIds.Name )
+){
+    val phone = rememberStringState(id = MyDataIds.Phone)
+}
+```
+
+## Data must be mapped
+
+If a variable accessed but not mapped then the app will crash for sure.
+
+## Data mapping
+
+Use `controller.resolver.addAll` method to map data with `id`.
+
+```kt
+controller.resolver.addAll(
+    id to version,
+    ...
+)
+```
+
+Mapping should be done on `init` normally.
+
+The rule of thumb is to map the data before accessing it.
+
+## Data type
+
+Variable must be accessed with exact data type it is declared with otherwise app will crash for sure.

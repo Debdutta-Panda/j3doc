@@ -1,0 +1,87 @@
+---
+sidebar_position: 4
+---
+
+# Permission Management
+
+## Collect permissions
+
+```kt
+// single
+val p = android.Manifest.permission.CAMERA
+// or multiple
+val p = listOf(android.Manifest.permission.CAMERA)
+```
+
+## Check
+
+```kt
+val result: J3MultiPermissionState? = p.checkPermission()// must be in coroutine
+```
+
+## Request
+
+```kt
+var result: PermissionRequestResult = permission.requestPermission()// must be in coroutine
+```
+
+---
+
+## Methods
+
+```kt
+suspend fun String.checkPermission(): J3MultiPermissionState?
+suspend fun List<String>.checkPermission(): J3MultiPermissionState?
+suspend fun String.requestPermission(): J3MultiPermissionState?
+suspend fun List<String>.requestPermission(): J3MultiPermissionState?
+```
+
+## J3MultiPermissionState
+
+```kt
+class J3MultiPermissionState(
+    val permissions: List<J3PermissionState>,
+    val revokedPermissions: List<J3PermissionState>,
+    val allPermissionsGranted: Boolean,
+    val shouldShowRationale: Boolean
+)
+```
+
+## J3PermissionState
+
+```kt
+class J3PermissionState(
+    val permission: String,
+    val status: J3PermissionStatus
+)
+```
+
+## J3PermissionStatus
+
+```kt
+public sealed interface J3PermissionStatus {
+    data object Granted : J3PermissionStatus
+    data class Denied(
+        val shouldShowRationale: Boolean
+    ) : J3PermissionStatus
+}
+```
+
+## PermissionRequestResult
+
+```kt
+data class PermissionRequestResult(
+    val multiPermissionState: J3MultiPermissionState?,
+    val permittedMap: Map<String, Boolean>?
+)
+```
+
+## Extensions
+
+```kt
+public val J3PermissionStatus.isGranted: Boolean
+```
+
+```kt
+public val J3PermissionStatus.shouldShowRationale: Boolean
+```

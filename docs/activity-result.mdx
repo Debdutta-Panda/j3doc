@@ -1,0 +1,43 @@
+---
+sidebar_position: 16
+---
+
+# Activity Result
+
+## Get Image from Camera
+```kt
+viewModelScope.launch(Dispatchers.Main) {
+    val image = takePicturePreview()
+}
+```
+
+## Get Content from storage/gallery
+
+```kt
+viewModelScope.launch(Dispatchers.Main) {
+    val image = getContent("image/*")
+}
+```
+
+## Intent Result(Start Activity for Result, etc)
+
+```kt
+viewModelScope.launch(Dispatchers.Main) {
+    val result = intentResult(your_intent)
+}
+```
+
+## Custom
+
+Make a custom if you need
+
+```kt
+suspend fun <I,O>requestForResult(
+    contract: ActivityResultContract<I, O>,
+    maxTry: Int = 10,
+    millis: Long = 200,
+    launcher: (ManagedActivityResultLauncher<I, O>) -> Unit
+): O?
+```
+
+Will discuss more on it later.

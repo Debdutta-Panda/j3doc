@@ -1,0 +1,67 @@
+---
+sidebar_position: 11
+---
+
+# UI Event Notification
+
+Because UI/page don't know about viewModel in **J3**. So, how UI/page inform about UI events like click, etc?
+
+## Notification Service
+
+Use a Notification Service to inform viewModel about UI events.
+
+Follow the below three steps:
+1. Get
+2. Notify
+3. Listen
+
+## Get Notifier
+
+```kt
+@Composable
+fun LoginPage(
+    notifier: NotificationService = rememberNotifier()
+){
+    ...
+}
+```
+
+## Notify event
+
+```kt
+Column{
+    Button(onClick = {
+        notifier.notify(MyDataIds.ClickMe)// without data
+        notifier.notify(MyDataIds.ClickMe, myData)// with data
+    }) {
+        Text("Click Me")
+    }
+}
+```
+
+## Listen to notification
+
+```kt
+class LoginViewModel: WirelessViewModel(){
+    override fun eventBusDescription(): EventBusDescription? {
+        return null
+    }
+
+    override fun onBack() {
+
+    }
+
+    override fun onNotification(id: Any?, arg: Any?) {
+        when(id){
+            MyDataIds.ClickMe->{
+                val data = arg// cast to your data type, can be null if not sent, so be careful
+                toast("Clicked")
+            }
+        }
+    }
+
+    override fun onStart() {
+
+    }
+}
+```

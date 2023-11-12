@@ -1,0 +1,61 @@
+---
+sidebar_position: 8
+---
+
+# Basic Setup
+
+```kotlin
+val navController = rememberNavController()// Normal navController you use
+NavHost(
+    navController = navController,
+    startDestination = Routes.splash.full// Get the destination string from your_route.full
+){
+    MyScreen(// MyScreen wraps all the magic
+        navController,// Provide the navController
+        Routes.splash,// Provide the Route instance
+        wirelessViewModel = { wvm<SplashViewModel>() }// Provide the WirelessViewModel instance
+    ) {
+        SplashPage()
+    }
+}
+```
+
+## MyScreen
+
+MyScreen wraps all the magic we need. So just use it. We will know about it in detail later.
+
+## wvm
+
+It is equivalent to `hiltViewModel` in **hilt** and `androidx.lifecycle.viewmodel.compose.viewModel` in **Jetpack Compose**.
+
+```kt
+//val viewModel = hiltViewModel<MyViewModel>()// with hilt
+//val viewModel = viewModel<MyViewModel>()// with Jetpack Compose
+val viewModel = wvm<MyViewModel>()// with J3
+```
+---
+You can put any number of pages by `MyScreen`. Each page need its own `MyScreen`.
+
+```kt
+val navController = rememberNavController()
+NavHost(
+    navController = navController,
+    startDestination = Routes.splash.full
+){
+    MyScreen(
+        navController,
+        Routes.splash,
+        wirelessViewModel = { wvm<SplashViewModel>() }
+    ) {
+        SplashPage()
+    }
+    MyScreen(
+        navController,
+        Routes.login,
+        wirelessViewModel = { wvm<LoginViewModel>() }
+    ) {
+        LoginPage()
+    }
+    ...
+}
+```

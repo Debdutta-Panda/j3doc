@@ -1,0 +1,109 @@
+---
+sidebar_position: 10
+---
+
+# Data Bridge
+
+In **J3** Composable page/UI and ViewModel don't know each other.
+So, how can data can be fed into composabe page/UI?
+
+Let's see.
+
+We have to follow three steps:
+1. Declare
+2. Map
+3. Access
+
+## Step 1: Declare variable
+
+```kt
+private val version = mutableStateOf("1.0.0")
+```
+
+## Step 2: Map variable to a key
+
+```kt
+init{
+    controller.resolver.addAll(
+        "versionKey" to version
+    )
+}
+```
+
+## Step 3: Access the variable
+
+```kt
+@Composable
+fun MyComposableUI(
+    version: State<String>: rememberStringState(key = "versionKey")
+){
+    Text(version.value)
+}
+```
+
+## Recommendation
+
+Use a enum class for your keys
+
+```kt
+enum class MyDataIds{
+    VersionKey,
+    NameKey,
+    PasswordKey
+}
+```
+
+## Example
+
+```kt
+// LoginViewModel
+class LoginViewModel: WirelessViewModel(){
+    private val name = mutableStateOf("My name is J3")// Declare the variable
+    override fun eventBusDescription(): EventBusDescription? {
+        return null
+    }
+
+    override fun onBack() {
+
+    }
+
+    override fun onNotification(id: Any?, arg: Any?) {
+
+    }
+
+    override fun onStart() {
+
+    }
+
+    init {
+        controller.resolver.addAll(
+            MyDataIds.Name to name// Map to a key
+        )
+    }
+}
+
+// LoginPage
+@Composable
+fun LoginPage(
+    name: State<String> = rememberStringState(id = MyDataIds.Name)// Take in parameter or wherever you want
+){
+    Column{
+        Text("Login Page")// Access
+        Text(name.value)
+    }
+}
+```
+
+## Benefits
+
+1. **UI and ViewModel decoupling**: Reuse your UI/page with any ViewModel or without one.
+2. **Fully testable**: Test your composable feeding your own data.
+3. **One variable**: Don't need two variable for one data: Normally in ViewModel we declare one private mutableStateOf and one `State<DataType>`
+```kt
+// Normally we do
+private val _name = mutableStateOf("My name")// private
+val name: State<String> = _name// publicly accessable
+
+// With J3 only one private variable is just enough
+private val name = mutableStateOf("My name is J3")// This will be served as State<String> when required
+```

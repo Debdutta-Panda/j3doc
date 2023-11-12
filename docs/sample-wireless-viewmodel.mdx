@@ -1,0 +1,27 @@
+---
+sidebar_position: 7
+---
+
+# Sample WirelessViewModel
+
+```kotlin
+class SplashViewModel: WirelessViewModel(){
+    override fun eventBusDescription(): EventBusDescription? {
+        return null
+    }
+
+    override fun onBack() {
+
+    }
+
+    override fun onNotification(id: Any?, arg: Any?) {
+
+    }
+
+    override fun onStart() {
+
+    }
+}
+```
+
+Normally we extends `ViewModel` but in *J3* we have to extend `WirelessViewModel`.

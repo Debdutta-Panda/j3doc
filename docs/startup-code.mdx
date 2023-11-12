@@ -1,0 +1,90 @@
+---
+sidebar_position: 4
+---
+
+# Startup Code
+
+```kotlin
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.debduttapanda.j3lib.EventBusDescription
+import com.debduttapanda.j3lib.MyScreen
+import com.debduttapanda.j3lib.Route
+import com.debduttapanda.j3lib.WirelessViewModel
+import com.debduttapanda.j3lib.wvm
+import com.debduttapanda.j3use.ui.theme.J3useTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            J3useTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Routes.splash.full
+                    ){
+                        MyScreen(
+                            navController,
+                            Routes.splash,
+                            wirelessViewModel = { wvm<SplashViewModel>() }
+                        ) {
+                            SplashPage()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SplashPage(){
+    Text("Hello World")
+}
+
+class SplashViewModel: WirelessViewModel(){
+    override fun eventBusDescription(): EventBusDescription? {
+        return null
+    }
+
+    override fun onBack() {
+
+    }
+
+    override fun onNotification(id: Any?, arg: Any?) {
+
+    }
+
+    override fun onStart() {
+
+    }
+}
+
+object Routes{
+    val splash = Route("splash")
+}
+```
+
+<img src="/img/startup_code_result.png" height="500" width="auto"/>
+
+## Startup things
+
+1. One Route
+2. One ViewModel which extends WirelessViewModel
+3. One Composable

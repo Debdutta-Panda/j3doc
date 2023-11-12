@@ -1,0 +1,17 @@
+---
+sidebar_position: 6
+---
+
+# Route basic
+
+Route is the wrapper of the destination/route we attach with the every composable page.
+Every route has its own arguments and deep links. Route wraps everything.
+To create a Route use its constructor data class `Route(name: String, ...)`
+
+Create a simple Route with just its name:
+```kotlin
+val splash = Route("splash")
+```
+
+* Whenevery you need the route name(string) just use `.name`.
+* When you need to navigate to a route use `.full`.

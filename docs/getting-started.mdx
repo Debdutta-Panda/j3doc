@@ -3,6 +3,7 @@ sidebar_position: 2
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import KotlinCompilerVersion from '@site/static/img/kotlin_compiler_version.png';
 
 # Getting Started
 
@@ -49,7 +50,7 @@ Add the dependency in your module level build.gradle file
 
 
 ```kts
-implementation("com.github.Debdutta-Panda:<latest_version>")
+implementation("com.github.Debdutta-Panda:J3:<latest_version>")
 ```
 
 </TabItem>
@@ -60,3 +61,35 @@ implementation("com.github.Debdutta-Panda:<latest_version>")
 ```
 </TabItem>
 </Tabs>
+
+## Recommendations
+
+1. Upgrade **kotlin Version** to **1.9.0**
+
+```kts
+id("org.jetbrains.kotlin.android") version "1.9.10" apply false
+```
+2. Upgrade `compileSdk` to **34**
+3. Upgrade `targetSdk` to **34**
+4. Upgrade`kotlinCompilerExtensionVersion` to **1.5.3**
+5. Upgrade `jetpack compose bom` version to **2023.10.01**
+```kts
+implementation(platform("androidx.compose:compose-bom:2023.10.01"))
+androidTestImplementation(platform("androidx.compose:compose-bom:2023.10.01"))
+```
+6. Upgrade `Java/Jvm` version to **17**
+```kts
+compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+kotlinOptions {
+    jvmTarget = "17"
+}
+```
+7. Upgrade `kotlin compiler version` to **17**
+<img src="/img/kotlin_compiler_version.png" />
+Apply -> Ok
+## Lastly
+
+Sync now

@@ -1,0 +1,86 @@
+---
+sidebar_position: 6
+---
+
+# Route Arguments
+
+## Setup arguments
+
+You can pass a list of arguments during creating a `Route` instance:
+
+```kt
+val home = Route("home", listOf(
+    navArgument("userId"){
+        type = NavType.StringType
+    },
+    navArgument("dob"){
+        type = NavType.StringType
+        nullable = true
+        defaultValue = null
+    }
+))
+```
+
+**navArgument** is the Jetpack Compose `androidx.navigation.navArgument`. This is what you use to create `NamedNavArgument` with `composable` inside `NavHost`.
+
+## Set argument values
+
+```kt
+navigation {
+    navigate(
+        Routes.home.navigation {
+            set("userId","123")
+            set("dob","29051987")
+        }
+    )
+}
+```
+
+## Get argument values
+
+```kt
+// in WirelessViewModel
+override fun onStartUp(route: Route?, arguments: Bundle?) {
+    val userId = arguments?.getString("userId")// access directly from original bundle
+    val map = route?.run{arguments?.toMap(route)}?:return// can create a simple map
+    val dob = map["dob"]// or access from map, hand crafted for you
+    Log.d("flkdjfdfd","$userId, $dob")
+}
+
+// in WirelessViewModel on demand
+navigation { 
+    val args = arguments()
+    val userId = args?.getString("userId")
+    val dob = args?.getString("dob")
+}
+```
+
+## Set back value
+
+```kt
+navigation {
+    setBack(Routes.splash.name,"hello","hi")
+    popBackStack()
+}
+```
+
+## SetBack method
+
+```kt
+fun NavHostController.setBack(
+    route: String,// the route you want to send the value
+    key: String,// key
+    value: Any?,// value
+    last: Boolean = false// search from last
+)
+```
+One route may appear multiple times in a back queue so J3 want to know the search direction and it will set the key value to that route if exists.
+
+## Get back value
+
+```kt
+navigation {
+    val value = getBack<String>("hello")
+    Log.d("fldjkfld","value = $value")
+}
+```

@@ -1,0 +1,29 @@
+---
+sidebar_position: 7
+---
+
+# Route Deeplinks
+
+```kt
+val home = Route(
+    "home", 
+    arguments = listOf(
+        navArgument("userId"){
+            type = NavType.StringType
+        },
+        navArgument("dob"){
+            type = NavType.StringType
+            nullable = true
+            defaultValue = null
+        }
+    ),
+    deepLinks = listOf(
+        navDeepLink {
+            uriPattern = "example://compose/dashboard/{name}"
+            action = Intent.ACTION_VIEW
+        }
+    )
+)
+```
+
+Get values similarly as for arguments.

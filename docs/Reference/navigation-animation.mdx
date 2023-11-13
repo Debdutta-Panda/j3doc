@@ -1,0 +1,61 @@
+---
+sidebar_position: 5
+---
+
+# Navigation Animation
+
+Two way of adding navigation animation:
+1. Global
+2. Local
+
+## Global Navigation Animation
+
+Add navigation animation in your `NavHost`.
+
+```kt
+@Composable
+public fun NavHost(
+    navController: NavHostController,
+    startDestination: String,
+    modifier: Modifier = Modifier,
+    contentAlignment: Alignment = Alignment.Center,
+    route: String? = null,
+    enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) =
+        { fadeIn(animationSpec = tween(700)) },
+    exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition) =
+        { fadeOut(animationSpec = tween(700)) },
+    popEnterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) =
+        enterTransition,
+    popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition) =
+        exitTransition,
+    builder: NavGraphBuilder.() -> Unit
+)
+```
+
+To make this process effective you need to set `false` to `enableDefaultTransition` in every `MyScreen` under the `NavHost`.
+
+## Local Navigation Animation
+
+Add navigation animation to `MyScreen`.
+
+```kt
+@NonRestartableComposable
+inline fun NavGraphBuilder.MyScreen(
+    navController: NavHostController,
+    route: Route,
+    crossinline wirelessViewModel: ( @Composable ()->WirelessViewModel? ) = {null},
+    enableDefaultTransition: Boolean = true,
+    noinline enterTransition: (@JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
+    noinline exitTransition: (@JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
+    noinline popEnterTransition: (@JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? =
+        enterTransition,
+    noinline popExitTransition: (@JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? =
+        exitTransition,
+
+    crossinline content: @Composable () -> Unit
+)
+```

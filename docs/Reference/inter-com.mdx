@@ -1,0 +1,21 @@
+---
+sidebar_position: 8
+---
+
+# InterCom
+
+There may be situation where ViewModels may have to inter communicate.
+
+## Send message to other viewModel
+
+```kt
+interCom<HomeViewModel>("Hi")
+```
+
+## Receive message
+
+```kt
+override fun interCom(message: InterCom) {
+    Log.d("fldkfdfdfd","${message.sender},${message.data}")
+}
+```

@@ -67,11 +67,19 @@ navigation {
 ## SetBack method
 
 ```kt
+// for single key value pair
 fun NavHostController.setBack(
     route: String,// the route you want to send the value
     key: String,// key
     value: Any?,// value
     last: Boolean = false// search from last
+)
+
+// for multiple key value pair
+fun NavHostController.setBack(
+    route: String,
+    map: Map<String,Any?>,
+    last: Boolean = false
 )
 ```
 One route may appear multiple times in a back queue so J3 want to know the search direction and it will set the key value to that route if exists.
@@ -84,3 +92,4 @@ navigation {
     Log.d("fldjkfld","value = $value")
 }
 ```
+

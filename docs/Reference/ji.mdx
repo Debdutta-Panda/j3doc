@@ -1,0 +1,79 @@
+---
+sidebar_position: 10
+---
+
+# ji: Dependency Injection by J3
+
+It is smallest and easiest Dependency Injection.
+
+```kt
+ji
+.app(this)
+.set<UserSaveUseCase>{
+    UserSaveUseCase(get())
+}
+.set<LoginAuthenticateUseCase>{
+    LoginAuthenticateUseCase(get())
+}
+.set<VersionUseCase>{
+    VersionUseCase(get())
+}
+.set<LatestVersionUseCase>{
+    LatestVersionUseCase(get())
+}
+.set<GetUserUseCase>{
+    GetUserUseCase(get())
+}
+.set<AppInfo> { AppInfoImpl() }
+.set<ChuckerInterceptor>{
+    ChuckerInterceptor
+        .Builder(app)
+        .build()
+}
+.set<OkHttpClient>{
+    OkHttpClient
+        .Builder()
+        .addInterceptor(ConnectivityInterceptor())
+        .addInterceptor(get<ChuckerInterceptor>())
+        .build()
+}
+.set<Converter.Factory>{
+    GsonConverterFactory.create()
+}
+.set<Retrofit> {
+    Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_URL)
+        .client(get())
+        .addConverterFactory(get())
+        .build()
+}
+.set<ApiService>{
+    get<Retrofit>().create(ApiService::class.java)
+}
+.set<RemoteRepository>{
+    RemoteRepositoryImpl(get())
+}
+.set<Repository>{
+    RepositoryImpl(get(), get())
+}
+.set<LocalRepository>{
+    LocalRepositoryImpl(get())
+}
+.set<UserDataStore>{
+    UserDataStore(app)
+}
+.set<Preference>{
+    DataStore(get())
+}
+```
+
+Call this within Application
+
+```kt
+class App: Application() {
+    override fun onCreate() {
+        super.onCreate()
+        // call ji
+    }
+}
+```

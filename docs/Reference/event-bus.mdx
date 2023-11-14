@@ -1,0 +1,54 @@
+---
+sidebar_position: 9
+---
+
+# EventBus
+
+This is the way to communicate to any component:
+1. Activity
+2. Fragment
+3. ViewModel
+4. Anything
+
+## Register for notifications
+
+```kt
+EventBus.instance.register(
+    id,// give an unique id
+    { p,t,v-> /* Do whatevery you want to do */ }// p for pattern, t for topics, v for value
+){
+    add(id)// add topics/pattern. Regex allowed with syntax highlighting
+}
+```
+
+## Notify
+
+```kt
+EventBus.instance.notify(topics, value)
+```
+---
+## In WirelessViewModel
+
+Register and unregister is automtic in WirelessViewModel.
+
+```kt
+override fun eventBusDescription(): EventBusDescription? {
+    return null
+}
+```
+
+## EventBusDescription
+
+```kt
+data class EventBusDescription(
+    val eventBusId: String,
+    val eventBusTopics: (EventBus.TopicsBuilder.()->Unit)? = null,
+    val eventBusAction: ((pattern: String, topic: String, value: Any?) -> Unit)? = null
+)
+```
+
+## Notify easily
+
+```kt
+fun eventBusNotify(topic: String, value: Any? = null)
+```

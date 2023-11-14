@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'J3',
-  tagline: 'Jetpack Joyride for Compose',
+  tagline: 'Jetpack Joyride Junction',
   favicon: 'img/j3_logo.png',
 
   // Set the production url of your site here

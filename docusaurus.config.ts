@@ -56,7 +56,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/j3_social_card.jpg',
     navbar: {
       title: 'J3',
       logo: {
@@ -94,17 +94,13 @@ const config: Config = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
               label: 'GitHub',
               href: 'https://github.com/Debdutta-Panda/J3',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} J3. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

@@ -1,0 +1,31 @@
+---
+sidebar_position: 12
+---
+
+# Pixel Perfect UI
+
+## dep & sep
+
+J3 has a nice way to have Pixel Perfect ui in all devices.
+
+Just use `dep` instead of **dp** and `sep` insted of **sp**.
+
+But fot that wrap all your ui with the design width in figma or xd.
+
+```kt
+CompositionLocalProvider(localDesignWidth provides  360f) {
+    AllYourUi()
+}
+```
+
+## depx
+
+```kt
+20.depx is equivalent to 20.dp.value * density
+// means number of pixels covered by 20.dp
+// it is useful in graphics programming in canvas
+```
+
+## sepx
+
+Similar to `depx`

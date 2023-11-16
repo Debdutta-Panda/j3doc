@@ -1,0 +1,62 @@
+---
+sidebar_position: 13
+---
+
+# Intent & Result
+
+## Take picture preview
+
+Get image **bitmap** from camera directly in `viewModel`.
+
+```kt
+val b = takePicturePreview()// suspend, get Bitmap?
+```
+
+## GetContent
+
+Get content **image/document/pdf** etc directly in `viewModel`.
+
+```kt
+val b = getContent("image/*")// suspend, get Uri?
+```
+
+## StartActivityForResult
+
+```kt
+suspend fun intentResult(intent: Intent): ActivityResult?
+```
+
+## Custom
+
+Make your own
+
+```kt
+suspend fun <I,O>requestResult(
+    createIntent: (context: Context, input: I)->Intent,
+    parseResult: (resultCode: Int, intent: Intent?)->O,
+    launch: ManagedActivityResultLauncher<I,O>.()->Unit,
+): O?
+```
+
+## Reference
+
+```kt
+suspend fun takePicturePreview(): Bitmap?
+suspend fun getContent(type: String): Uri?
+suspend fun intentResult(intent: Intent): ActivityResult?
+suspend fun pickVisualMedia(pickVisualMediaRequest: PickVisualMediaRequest): Uri?
+suspend fun pickMultipleVisualMedia(pickVisualMediaRequest: PickVisualMediaRequest, maxItems: Int = Int.MAX_VALUE): List<Uri>?
+suspend fun takePicture(uri: Uri): Boolean?
+suspend fun takeVideo(uri: Uri): Bitmap?
+suspend fun captureVideo(uri: Uri): Boolean?
+suspend fun getMultipleContents(type: String): List<Uri>?
+suspend fun openDocument(types: Array<String>): Uri?
+suspend fun openMultipleDocuments(types: Array<String>): List<Uri>?
+suspend fun createDocument(type: String): Uri?
+suspend fun openDocumentTree(uri: Uri?): Uri?
+suspend fun <I,O>requestResult(
+    createIntent: (context: Context, input: I)->Intent,
+    parseResult: (resultCode: Int, intent: Intent?)->O,
+    launch: ManagedActivityResultLauncher<I,O>.()->Unit,
+): O?
+```

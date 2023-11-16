@@ -1,0 +1,29 @@
+---
+sidebar_position: 11
+---
+
+# Toast
+
+## Direct string
+
+```kt
+toast("your_string")
+```
+
+## String resource
+
+```kt
+toast(R.string.your_string_resource)
+```
+
+## String resource with variable
+
+```kt
+toast(StringResource(R.string.your_string_resource, your_var1, your_var2,...))
+```
+
+## Method
+
+```kt
+fun toast(message: Any, duration: Int = Toast.LENGTH_SHORT)
+```

@@ -1,0 +1,49 @@
+---
+sidebar_position: 15
+---
+
+# UI Notification
+
+## Notify
+
+Send notification to ui by:
+```kt
+uiNotify(data, id)
+```
+
+## Listen
+
+```kt
+UINotification{id,event->
+    // access event data and do whatever you want
+}
+```
+
+## Reference
+
+```kt
+@Composable
+fun UINotification(block: suspend CoroutineScope.(id: Any?, event: Event<Any?>?)->Unit)
+
+@Composable
+fun UINotification(id: Any?, block: suspend CoroutineScope.(event: Event<Any?>?)->Unit)
+```
+
+```kt
+class Event<out T>(
+    private val content: T,
+    val id: Any? = null
+) {
+    var hasBeenHandled = false
+        private set
+    fun get(): T? {
+        return if (!hasBeenHandled) {
+            hasBeenHandled = true
+            content
+        } else {
+            null
+        }
+    }
+    fun peekContent(): T = content
+}
+```

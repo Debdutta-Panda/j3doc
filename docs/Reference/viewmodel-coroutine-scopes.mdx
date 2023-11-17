@@ -1,0 +1,37 @@
+---
+sidebar_position: 14
+---
+
+# ViewModel Coroutine Scopes
+
+## ioScope
+
+```kt
+viewModelScope.launch(Dispatchers.IO){
+    // suspended codes
+}
+```
+
+can be easily written as:
+
+```kt
+ioScope{
+    // suspended codes
+}
+```
+
+## mainScope
+
+```kt
+viewModelScope.launch(Dispatchers.MAIN){
+    // suspended codes
+}
+```
+
+can be easily written as:
+
+```kt
+mainScope{
+    // suspended codes
+}
+```

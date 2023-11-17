@@ -32,12 +32,13 @@ viewModelScope.launch(Dispatchers.Main) {
 Make a custom if you need
 
 ```kt
-suspend fun <I,O>requestForResult(
-    contract: ActivityResultContract<I, O>,
+suspend fun <I, O> requestResult(
+    createIntent: (context: Context, input: I) -> Intent,
+    parseResult: (resultCode: Int, intent: Intent?) -> O,
+    launch: ManagedActivityResultLauncher<I, O>.() -> Unit,
     maxTry: Int = 10,
-    millis: Long = 200,
-    launcher: (ManagedActivityResultLauncher<I, O>) -> Unit
-): O?
+    millis: Long = 200
+)
 ```
 
 Will discuss more on it later.

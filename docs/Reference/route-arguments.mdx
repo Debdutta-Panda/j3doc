@@ -28,7 +28,9 @@ val home = Route("home", listOf(
 ```kt
 navigation {
     navigate(
-        Routes.home.navigation {
+        Routes
+        .home
+        .arguments {
             set("userId","123")
             set("dob","29051987")
         }
@@ -57,9 +59,11 @@ navigation {
 
 ## Set back value
 
+When returning to previous destination you can return some values as well.
+
 ```kt
 navigation {
-    setBack(Routes.splash.name,"hello","hi")
+    setBack(Routes.splash.name,"hello","hi")// return splash destination hi value in hello key.
     popBackStack()
 }
 ```

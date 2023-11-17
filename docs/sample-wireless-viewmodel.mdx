@@ -5,21 +5,25 @@ sidebar_position: 7
 # Sample WirelessViewModel
 
 ```kotlin
-class SplashViewModel: WirelessViewModel(){
+class MyViewModel: WirelessViewModel(){
+    override fun interCom(message: InterCom) {
+        
+    }
+
+    override fun onBack() {
+        
+    }
+
     override fun eventBusDescription(): EventBusDescription? {
         return null
     }
 
-    override fun onBack() {
-
-    }
-
     override fun onNotification(id: Any?, arg: Any?) {
-
+        
     }
 
-    override fun onStart() {
-
+    override fun onStartUp(route: Route?, arguments: Bundle?) {
+        
     }
 }
 ```

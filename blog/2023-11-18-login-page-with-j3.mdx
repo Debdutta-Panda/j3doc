@@ -1,0 +1,668 @@
+---
+title: Simple Login Page with J3
+description: This post will guide how to develop a simple login page within minutes with J3
+slug: login-page-with-j3
+authors: debduttapanda
+tags: [android, jetpack compose, j3, jetpack joyride junction, ui and viewModel decoupling, login ui]
+image: /img/login_page_with_j3.jpg
+---
+
+# Simple Login Page with J3
+
+![Alt text](/img/login_page_with_j3.jpg "Simple Login Page with J3")
+
+## Setup
+
+1. Create new **Jetpack Compoe Project** in *Android Studio*
+2. Clean up the project: Delete the unneccessary default codes.
+
+```kt showLineNumbers
+package com.debduttapanda.loginpagewithj3
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.debduttapanda.loginpagewithj3.ui.theme.LoginPageWithJ3Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            LoginPageWithJ3Theme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    // delete next line
+                    Greeting("Android")
+                }
+            }
+        }
+    }
+}
+// delete-start
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    LoginPageWithJ3Theme {
+        Greeting("Android")
+    }
+}
+// delete-end
+```
+3. Add the Jitpack Repository
+```kt showLineNumbers
+dependencyResolutionManagement {
+    ...
+    repositories {
+        ...
+        maven("https://jitpack.io")
+    }
+}
+```
+4. Upgrade the project
+
+- Project level build.gradle file
+
+```kts
+id("org.jetbrains.kotlin.android") version "1.9.20" apply false
+```
+
+- Module level build.gradle file
+
+```kts
+android {
+    ...
+    // modify next line
+    compileSdk = 34
+
+    defaultConfig {
+        ...
+        // modify next line
+        targetSdk = 34
+        ...
+    }
+    compileOptions {
+        // modify next line
+        sourceCompatibility = JavaVersion.VERSION_17
+        // modify next line
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        // modify next line
+        jvmTarget = "17"
+    }
+    composeOptions {
+        // modify next line
+        kotlinCompilerExtensionVersion = "1.5.4"
+    }
+}
+
+dependencies {
+    // add next line
+    implementation("com.github.Debdutta-Panda:J3:1.1.31")
+    // no other dependencies required
+}
+```
+
+5. Run to check everything is ok
+
+---
+
+## Develop
+
+1. Create a Route
+
+```kt showLineNumbers
+object Routes{
+    val login = Route("login")
+}
+```
+
+2. Create a ViewModel
+
+```kt showLineNumbers
+class LoginViewModel: WirelessViewModel(){
+    override fun eventBusDescription(): EventBusDescription? {
+        return null
+    }
+
+    override fun interCom(message: InterCom) {
+
+    }
+
+    override fun onBack() {
+
+    }
+
+    override fun onNotification(id: Any?, arg: Any?) {
+
+    }
+
+    override fun onStartUp(route: Route?, arguments: Bundle?) {
+
+    }
+}
+```
+
+3. Create **non-functional** UI
+
+```kt showLineNumbers
+@Composable
+fun LoginPage(){
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
+    ) {
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            placeholder = {
+                Text("User ID")
+            }
+        )
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            placeholder = {
+                Text("Password")
+            }
+        )
+        OutlinedButton(
+            onClick = {
+
+            }
+        ) {
+            Text("Login")
+        }
+    }
+}
+```
+
+4. Add State variables
+
+```kt showLineNumbers
+class LoginViewModel: WirelessViewModel(){
+    // add next line
+    private val userId = mutableStateOf("")
+    // add next line
+    private val password = mutableStateOf("")
+    override fun eventBusDescription(): EventBusDescription? {
+        return null
+    }
+
+    override fun interCom(message: InterCom) {
+
+    }
+
+    override fun onBack() {
+
+    }
+
+    override fun onNotification(id: Any?, arg: Any?) {
+
+    }
+
+    override fun onStartUp(route: Route?, arguments: Bundle?) {
+
+    }
+}
+```
+
+5. Create a **Id Enum**
+
+```kt showLineNumbers
+enum class MyDataIds{
+    UserId,
+    Password,
+    Login
+}
+```
+
+6. Map ids to states
+
+```kt showLineNumbers
+class LoginViewModel: WirelessViewModel(){
+    private val userId = mutableStateOf("")
+    private val password = mutableStateOf("")
+    override fun eventBusDescription(): EventBusDescription? {
+        return null
+    }
+
+    override fun interCom(message: InterCom) {
+
+    }
+
+    override fun onBack() {
+
+    }
+
+    override fun onNotification(id: Any?, arg: Any?) {
+
+    }
+
+    override fun onStartUp(route: Route?, arguments: Bundle?) {
+
+    }
+    
+    // add-start
+    init {
+        controller.resolver.addAll(
+            MyDataIds.UserId to userId,
+            MyDataIds.Password to password
+        )
+    }
+    // add-end
+}
+```
+
+7. Setup navigation
+
+```kt showLineNumbers
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.debduttapanda.j3lib.InterCom
+import com.debduttapanda.j3lib.MyScreen
+import com.debduttapanda.j3lib.WirelessViewModel
+import com.debduttapanda.j3lib.models.EventBusDescription
+import com.debduttapanda.j3lib.models.Route
+import com.debduttapanda.loginpagewithj3.ui.theme.LoginPageWithJ3Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            LoginPageWithJ3Theme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    // add-start
+                    val nav = rememberNavController()
+                    NavHost(
+                        navController = nav,
+                        startDestination = Routes.login.full
+                    ){
+                        MyScreen(
+                            nav,
+                            route = Routes.login,
+                            wirelessViewModel = { viewModel<LoginViewModel>() }
+                        ){
+                            LoginPage()
+                        }
+                    }
+                    // add-end
+                }
+            }
+        }
+    }
+}
+```
+
+8. Get the State variables
+
+```kt showLineNumbers
+@Composable
+fun LoginPage(
+    // add-start
+    userId: State<String> = rememberStringState(id = MyDataIds.UserId),
+    password: State<String> = rememberStringState(id = MyDataIds.Password)
+    // add-end
+){
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
+    ) {
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            placeholder = {
+                Text("User ID")
+            }
+        )
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            placeholder = {
+                Text("Password")
+            }
+        )
+        OutlinedButton(
+            onClick = {
+
+            }
+        ) {
+            Text("Login")
+        }
+    }
+}
+```
+
+9. Access the state variables
+
+```kt showLineNumbers
+@Composable
+fun LoginPage(
+    userId: State<String> = rememberStringState(id = MyDataIds.UserId),
+    password: State<String> = rememberStringState(id = MyDataIds.Password)
+){
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
+    ) {
+        OutlinedTextField(
+            // modify next line
+            value = userId.value,
+            onValueChange = {},
+            placeholder = {
+                Text("User ID")
+            }
+        )
+        OutlinedTextField(
+            // modify next line
+            value = password.value,
+            onValueChange = {},
+            placeholder = {
+                Text("Password")
+            }
+        )
+        OutlinedButton(
+            onClick = {
+
+            }
+        ) {
+            Text("Login")
+        }
+    }
+}
+```
+
+10. Notify events
+
+```kt showLineNumbers
+@Composable
+fun LoginPage(
+    userId: State<String> = rememberStringState(id = MyDataIds.UserId),
+    password: State<String> = rememberStringState(id = MyDataIds.Password),
+    // add next line
+    notifier: NotificationService = rememberNotifier()
+){
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
+    ) {
+        OutlinedTextField(
+            value = userId.value,
+            onValueChange = {
+                // add next line
+                notifier.notify(MyDataIds.UserId,it)            
+            },
+            placeholder = {
+                Text("User ID")
+            }
+        )
+        OutlinedTextField(
+            value = password.value,
+            onValueChange = {
+                // add next line
+                notifier.notify(MyDataIds.Password,it)
+            },
+            placeholder = {
+                Text("Password")
+            }
+        )
+        OutlinedButton(
+            onClick = {
+                // add next line
+                notifier.notify(MyDataIds.Login)
+            }
+        ) {
+            Text("Login")
+        }
+    }
+}
+```
+
+12. Listen and react
+
+```kt showLineNumbers
+class LoginViewModel: WirelessViewModel(){
+    private val userId = mutableStateOf("")
+    private val password = mutableStateOf("")
+    override fun eventBusDescription(): EventBusDescription? {
+        return null
+    }
+
+    override fun interCom(message: InterCom) {
+
+    }
+
+    override fun onBack() {
+
+    }
+
+    override fun onNotification(id: Any?, arg: Any?) {
+        // add-start
+        when(id){
+            MyDataIds.UserId->{
+                userId.value = arg as String
+            }
+            MyDataIds.Password->{
+                password.value = arg as String
+            }
+            MyDataIds.Login->{
+                // do login
+            }
+        }
+        // add-end
+    }
+
+    override fun onStartUp(route: Route?, arguments: Bundle?) {
+
+    }
+
+    init {
+        controller.resolver.addAll(
+            MyDataIds.UserId to userId,
+            MyDataIds.Password to password
+        )
+    }
+}
+```
+
+## Result
+
+![Alt text](/img/login-ui.jpeg "Login UI")
+
+---
+
+## Complete code
+
+```kt
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.debduttapanda.j3lib.InterCom
+import com.debduttapanda.j3lib.MyScreen
+import com.debduttapanda.j3lib.NotificationService
+import com.debduttapanda.j3lib.WirelessViewModel
+import com.debduttapanda.j3lib.models.EventBusDescription
+import com.debduttapanda.j3lib.models.Route
+import com.debduttapanda.j3lib.rememberNotifier
+import com.debduttapanda.j3lib.rememberStringState
+import com.debduttapanda.loginpagewithj3.ui.theme.LoginPageWithJ3Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            LoginPageWithJ3Theme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    val nav = rememberNavController()
+                    NavHost(
+                        navController = nav,
+                        startDestination = Routes.login.full
+                    ){
+                        MyScreen(
+                            nav,
+                            route = Routes.login,
+                            wirelessViewModel = { viewModel<LoginViewModel>() }
+                        ){
+                            LoginPage()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@Composable
+fun LoginPage(
+    userId: State<String> = rememberStringState(id = MyDataIds.UserId),
+    password: State<String> = rememberStringState(id = MyDataIds.Password),
+    notifier: NotificationService = rememberNotifier()
+){
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
+    ) {
+        OutlinedTextField(
+            value = userId.value,
+            onValueChange = {
+                notifier.notify(MyDataIds.UserId,it)
+            },
+            placeholder = {
+                Text("User ID")
+            }
+        )
+        OutlinedTextField(
+            value = password.value,
+            onValueChange = {
+                notifier.notify(MyDataIds.Password,it)
+            },
+            placeholder = {
+                Text("Password")
+            }
+        )
+        OutlinedButton(
+            onClick = {
+                notifier.notify(MyDataIds.Login)
+            }
+        ) {
+            Text("Login")
+        }
+    }
+}
+
+class LoginViewModel: WirelessViewModel(){
+    private val userId = mutableStateOf("")
+    private val password = mutableStateOf("")
+    override fun eventBusDescription(): EventBusDescription? {
+        return null
+    }
+
+    override fun interCom(message: InterCom) {
+
+    }
+
+    override fun onBack() {
+
+    }
+
+    override fun onNotification(id: Any?, arg: Any?) {
+        when(id){
+            MyDataIds.UserId->{
+                userId.value = arg as String
+            }
+            MyDataIds.Password->{
+                password.value = arg as String
+            }
+        }
+    }
+
+    override fun onStartUp(route: Route?, arguments: Bundle?) {
+
+    }
+
+    init {
+        controller.resolver.addAll(
+            MyDataIds.UserId to userId,
+            MyDataIds.Password to password
+        )
+    }
+}
+
+object Routes{
+    val login = Route("login")
+}
+
+enum class MyDataIds{
+    UserId,
+    Password,
+    Login
+}
+```

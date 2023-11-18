@@ -68,8 +68,9 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Docs',
         },
+        {to: 'blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/Debdutta-Panda/J3',
           label: 'GitHub',
@@ -104,7 +105,24 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-      additionalLanguages: ['kotlin','groovy'],
+      additionalLanguages: ['kotlin','groovy','diff'],
+      magicComments: [
+        {
+          className: 'theme-code-block-deleted-line',
+          line: 'delete next line',
+          block: {start: 'delete-start', end: 'delete-end'},
+        },
+        {
+          className: 'theme-code-block-modified-line',
+          line: 'modify next line',
+          block: {start: 'modify-start', end: 'modify-end'},
+        },
+        {
+          className: 'theme-code-block-added-line',
+          line: 'add next line',
+          block: {start: 'add-start', end: 'add-end'},
+        },
+      ]
     },
   } satisfies Preset.ThemeConfig,
 };
